@@ -1,5 +1,5 @@
 # poll-socialnetwork-prototype
-### Social Networking app using Python, for educational purposes only!
+### Poll Social Networking app using Python, for educational purposes only!
 
 - Google App Engine
 - Custom user authentication with Webapp2
