@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>Seja Bem Vindo {{usuario}}</h1>
+
+<form method="post">
+			<br><input type="text" name="busca">
+			<input type="submit" name="button" value="Pesquisar">
+			<br><br>
+</form>
+
+{% set teste = 0 %}
+{% for x in names %}
+	{% set teste = teste + 1 %}	
+	<form method="post">		
+		<br>
+		<p><h2>Enquete</h2></p>				
+		<input type="radio" name="enquete" value="{{x}}1">{{x}}<br>
+		<input type="radio" name="enquete" value="{{x}}2">{{x}}<br>
+		<input type="radio" name="enquete" value="{{x}}3">{{x}}<br>
+		<input type="radio" name="enquete" value="{{x}}4">{{x}}<br>
+		<input type="radio" name="enquete" value="{{x}}5">{{x}}<br>		
+		<br><b>Comentarios:</b>				
+		{% for y in names %}
+			<p>{{y}}: Não concordo!</p>
+		{% endfor %}		
+		<button type="submit" name="button" value="{{teste}}">Comentar</button>	
+		<button type="submit" name="button" value="votar">Votar</button>	
+	</form>		
+	
+	{% if teste == num %}		
+		<br><input type="text" name="comentario">		
+		<button type="submit" name="button" value="eviar_comentario">Enviar</button>	
+	{% endif %}	
+	
+{% endfor %}	
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Loris</title>
+</head>
+
+<body>
+
+<h1>Seu nome: <a href="/user/{{ nome }}">{{ nome }}</a>!</h1>
+
+<ul>
+<li><a href="/home">Home</a></li>
+<li><a href="/perfil">Perfil</a></li>                                                     
+<li><a href="/amigos">Amigos</a></li>
+<li><a href="/logout">Sair</a></li>
+<br>
+</ul>
+
+<form action="/busca">
+<br><input type="text" name="busca">
+<input type="submit" name="button" value="Pesquisar">
+<br><br>
+</form>
+
+{% if usuarios[0] %}		
+<p><b>Usuários:</b></p>
+{% endif %}		
+{% for key in usuarios %}
+	<form method="post">		
+	<p><a href="/user/{{ key }}"><b>{{ key }}</b></a></p>	
+	</form>			
+{% endfor %}		
+
+{% if enquetes[0] %}		
+<p><b>Enquetes:</b></p>
+{% endif %}		
+{% for key in enquetes %}	
+	<form method="post">			
+	<p><a href="/enquete/{{ key }}"><b>{{ key }}</b></a></p>	
+	</form>			
+{% endfor %}		
+</body>
+
+</html>

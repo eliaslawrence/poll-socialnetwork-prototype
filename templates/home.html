@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Loris</title>
+	</head>
+	<body>
+
+		<h1>Seu nome: <a href="/user/{{ nome }}">{{ nome }}</a>!</h1>
+
+		<form action="/busca">
+			<br><input type="text" name="busca">
+			<input type="submit" name="button" value="Pesquisar">
+			<br><br>
+		</form>
+
+		<ul>
+			<li><a href="/home">Home</a></li>
+			<li><a href="/perfil">Perfil</a></li>                                                     
+			<li><a href="/amigos">Amigos</a></li>
+			<li><a href="/logout">Sair</a></li>
+			<br>
+		</ul>
+		
+		{% if  teste != "true" %}
+			<form method="post">
+				<br><button type="submit" name="button" value="nova_enquete">Criar Nova Enquete</button>	
+			</form>
+		{% endif%}
+			
+		{% if  teste == "true" %}
+			<form method="post">
+				<textarea rows="6" cols="70" name="pergunta">{{pergunta}}</textarea>
+				
+				<br><br>Alternativas:<br> 				
+				
+				<br><input type="text" name="envia_alternativa1">									
+				<br>				
+				<br><input type="text" name="envia_alternativa2">					
+				<br>				
+				<br><input type="text" name="envia_alternativa3">					
+				<br>				
+				<br><input type="text" name="envia_alternativa4">					
+				<br> 				
+				<br><input type="text" name="envia_alternativa5">				
+					
+				<br><br><button type="submit" name="button" value="enviar_enquete">Criar</button>				
+			</form>
+		{% endif %}										
+		
+		{% set teste = 0 %}
+		<ul>
+		{% for key in perguntas %}
+			{% set teste = teste + 1 %}	
+			<form method="post">		
+				<br>
+				<li><p><a href="/user/{{ autor[teste-1] }}"><b>{{ autor[teste-1] }}</b></a></p>	
+				<p>{{key}}</p>	
+				{% if alternativas[teste-1][0] != "" %}	
+				<input type="radio" name="{{ key }}" value="a1">{{ alternativas[teste-1][0] }} ({{ votos[teste-1][0] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][1] != "" %}	
+				<input type="radio" name="{{ key }}" value="a2">{{ alternativas[teste-1][1] }} ({{ votos[teste-1][1] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][2] != "" %}	
+				<input type="radio" name="{{ key }}" value="a3">{{ alternativas[teste-1][2] }} ({{ votos[teste-1][2] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][3] != "" %}	
+				<input type="radio" name="{{ key }}" value="a4">{{ alternativas[teste-1][3] }} ({{ votos[teste-1][3] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][4] != "" %}	
+				<input type="radio" name="{{ key }}" value="a5">{{ alternativas[teste-1][4] }} ({{ votos[teste-1][4] }} votos)<br>
+				{% endif %}	
+				<br>
+						
+				<button type="submit" name="button" value="{{teste}}">Comentar</button>	
+				<button type="submit" name="votar" value="{{ key }}">Votar</button>					
+				{{ resposta }}
+			</form>		
+		
+		{% if  teste == num %}
+			<form method="post">
+				<br><input type="text" name="comentario_novo">	
+				<button type="submit" name="enviarcomentario" value="{{ key }}">Enviar</button>	
+			</form>
+		{% endif%}
+		
+		
+		{% if comentarios[teste-1]%}		
+		<p><b>Comentários:</b></p>
+		{% endif %}
+		
+		{% set t = -1 %}
+		{% for x in comentarios[teste-1]%}
+			{% set t = t + 1 %}	
+			<p><a href="/user/{{ autor_comentarios[teste-1][t] }}">{{ autor_comentarios[teste-1][t] }}</a>: {{ x }}</p>
+		{% endfor %}	
+		
+	{% endfor %}		
+	</ul>
+	</body>
+</html>

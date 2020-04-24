@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Loris</title>
+</head>
+<body>
+
+<h1>Seu nome: {{nome}}!</h1>
+
+<ul>
+			<li><a href="/home">Home</a></li>                                                  
+			<li><a href="/amigos">Amigos</a></li>
+			<li><a href="/logout">Sair</a></li>
+			<br>
+		</ul>
+
+{% if minha_pagina != "True" %}
+<form method="post">
+<input type="submit" name="adicionar" value="Adicionar aos amigos">
+<br><br>
+</form>
+{% endif %}
+
+{% set teste = 0 %}
+<ul>
+		{% for key in perguntas %}
+			{% set teste = teste + 1 %}	
+			<form method="post">		
+				<br>				
+				<li><p>{{key}}</p>	
+				{% if alternativas[teste-1][0] != "" %}	
+				<input type="radio" name="{{ key }}" value="a1">{{ alternativas[teste-1][0] }} ({{ votos[teste-1][0] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][1] != "" %}	
+				<input type="radio" name="{{ key }}" value="a2">{{ alternativas[teste-1][1] }} ({{ votos[teste-1][1] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][2] != "" %}	
+				<input type="radio" name="{{ key }}" value="a3">{{ alternativas[teste-1][2] }} ({{ votos[teste-1][2] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][3] != "" %}	
+				<input type="radio" name="{{ key }}" value="a4">{{ alternativas[teste-1][3] }} ({{ votos[teste-1][3] }} votos)<br>
+				{% endif %}	
+				{% if alternativas[teste-1][4] != "" %}	
+				<input type="radio" name="{{ key }}" value="a5">{{ alternativas[teste-1][4] }} ({{ votos[teste-1][4] }} votos)<br>
+				{% endif %}	
+				<br>
+				{% if minha_pagina == "True" %}
+				<button type="submit" name="stats" value="{{teste}}">Estatísticas</button>			
+				{% endif %}
+				<button type="submit" name="comentar" value="{{teste}}">Comentar</button>	
+				<button type="submit" name="votar" value="{{ key }}">Votar</button>		
+				
+			</form>		
+		
+		{% if teste == num %}			
+			<br><input type="text" name="comentario">		
+			<button type="submit" name="button" value="eviar_comentario">Enviar</button>	
+		{% endif %}	
+		
+		{% if teste == numS %}		
+			<br>
+			<table border = "1">
+				<tr>
+					<td><b> Alternativas </b></td>
+					<td><b> Média Idade </b></td>		
+					<td><b> Porcentagem </b></td>
+				</tr>
+				{% set cont = 0 %}
+				{% for idade in idades %}
+					{% set cont = cont + 1 %}
+					<tr>
+						<td> {{cont}} </td>
+						<td>{{idade}} anos</td>		
+						<td>{{ homens[cont - 1] }}% Homens <br>{{ mulheres[cont - 1] }}% Mulheres</td>
+					</tr>
+				{% endfor %}					
+			</table>
+		{% endif %}	
+	
+	{% endfor %}	
+</ul>
+</body>
+</html>
